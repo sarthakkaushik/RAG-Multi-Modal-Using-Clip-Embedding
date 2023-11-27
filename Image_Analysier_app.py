@@ -33,3 +33,13 @@ uploaded_image = st.file_uploader("Upload an image...", type=["jpg", "png", "jpe
 if uploaded_image is not None:
     image = Image.open(uploaded_image)
     st.image(image, caption='Uploaded Image', use_column_width=True)
+    image_documents= SimpleDirectoryReader(image).load_data()
+    query="Analysiz the give image"
+    st.write(query)
+
+    response = openai_mm_llm.complete(
+    prompt=query,
+    image_documents=image_documents,
+    )
+    st.write("Fetching response: ")
+    st.write(response)
