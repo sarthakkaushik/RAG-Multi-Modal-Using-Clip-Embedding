@@ -1,0 +1,13 @@
+prefix=D:/PYTHON_PROJECTS/LamaIndex/Multimodel RAG/LamaIndex_Multimodel_venv/Library
+exec_prefix=D:/PYTHON_PROJECTS/LamaIndex/Multimodel RAG/LamaIndex_Multimodel_venv/Library
+libdir=D:/PYTHON_PROJECTS/LamaIndex/Multimodel RAG/LamaIndex_Multimodel_venv/Library/lib
+sharedlibdir=D:/PYTHON_PROJECTS/LamaIndex/Multimodel RAG/LamaIndex_Multimodel_venv/Library/lib
+includedir=D:/PYTHON_PROJECTS/LamaIndex/Multimodel RAG/LamaIndex_Multimodel_venv/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
