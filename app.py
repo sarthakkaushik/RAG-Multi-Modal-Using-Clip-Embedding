@@ -1,37 +1,27 @@
 import streamlit as st
-import os
-from PIL import Image
-import streamlit as st
-from PIL import Image
-import tempfile
-from dotenv import load_dotenv
-import os
-from llama_index.multi_modal_llms.generic_utils import (load_image_urls)
+from multimodel import create_qdrant_vdb,Create_Query_Engine,get_response
 
-# Setting up environment variables
-load_dotenv()
-open_api_key = os.environ['OPENAI_API_KEY']
+def main():
+    st.title("File Path Input")
 
-## Setting the OPEN AI Vision API 
+    # Create a text input field for the file path
+    file_path = st.text_input("Enter Directory path:", placeholder="e.g., /path/to/dir")
 
-from llama_index.multi_modal_llms.openai import OpenAIMultiModal
-from llama_index import SimpleDirectoryReader
+    if file_path:
+        # Print the file path
+        st.write("Dir path:", file_path)
 
-openai_mm_llm = OpenAIMultiModal(
-    model="gpt-4-vision-preview",
-    api_key=open_api_key,
-    max_new_tokens=500,
-    temperature=0.0,
-)
+        # Additional processing can be done here based on the file path
+    
+    with st.spinner("Creating vector db.......please wait for some time"):
+        index=create_qdrant_vdb(file_path)
+    st.success("Index created")
+    
+    query_ques=st.chat_input("Enter the question")
+    qe=Create_Query_Engine(index)
+    res=get_response(qe,query_ques)
+    
+    st.write(res)
 
-st.title('Image Uploader and Analyzer')
-st.write("Hello World")
-st.write("""
-# My first app
-Hello *world!*
-""")
-
-
-
-uploaded_file = st.file_uploader("Choose an image...", type="jpg")
-st.write("UUUPLOADED FILE")
+if __name__ == "__main__":
+    main()
